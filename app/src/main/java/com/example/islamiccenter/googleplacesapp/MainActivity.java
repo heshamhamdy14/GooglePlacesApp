@@ -17,7 +17,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -47,13 +49,15 @@ public class MainActivity extends AppCompatActivity {
         progressDialog=new ProgressDialog(MainActivity.this);
 
         MyAsyncTask myAsyncTask = new MyAsyncTask();
-        String url ="http://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670,151.1957&radius=500&types=food&name=cruise&key=AIzaSyBp4c8yTUU9vhYmU73ZMHBOWHIinW5q0b8"
+        String url ="http://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670,151.1957&radius=500&types=food&name=cruise&key=AIzaSyBp4c8yTUU9vhYmU73ZMHBOWHIinW5q0b8";
 
         myAsyncTask.execute(url);
     }
 
 
+
     private class MyAsyncTask extends AsyncTask<String , Void ,PlacesModel[] > {
+
         protected void onPreExecute() {
 
         }
@@ -72,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
             try {
                 String s = run(url[0]);
                 Log.d("yarb tfla7", s);
-                JsonObject jsonObject = new JsonObject(s);
-                JsonArray jsonArray = jsonObject.getAsJsonArray("results");
+                JSONObject jsonObject = new JSONObject(s);
+                JSONArray jsonArray = jsonObject.getJSONArray("results");
                 placemodels = gson.fromJson(jsonArray.toString(), PlacesModel[].class);
                 return placemodels;
 
